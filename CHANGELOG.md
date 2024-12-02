@@ -10,3 +10,9 @@
 ## 25.06.2024 version 2.0.2
 - Fix the aggregation code(with CTEs)
 - Skip empty statuses
+
+## 02.12.2024 version 2.0.3
+- Add Jobs to find and Fix learning progress inconsistencies(non-matching dates and status)
+- Add a logging mechanism
+- Add a job to clean certificates(deactivate wrongly assigned certiticates)
+- Refactor: Remove ilLFStatusLP -->  move logic to the cron job class

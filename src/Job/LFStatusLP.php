@@ -8,17 +8,17 @@ use ilLPStatusWrapper;
 use ilLPStatus;
 use ilObject;
 use ilDBConstants;
-
+use minervis\plugins\LPFixx\Utils\SummaryLogger;
 
 /**
- * Class ilLFStatusLP
+ * Class LFStatusLP
  *
  *
  * @package minervis\plugins\LPFixx\Job
  *
  * @author Jephte Abijuru <jephte.abijuru@minervis.com>
  */
-class ilLFStatusLP
+class LFStatusLP
 {
 
     /**
@@ -60,7 +60,8 @@ class ilLFStatusLP
             $changed = true;
 
         }
-        
+        SummaryLogger::write($a_usr_id, $a_obj_id, SummaryLogger::REASON_FIX_COLLECTION_LP, $status);
+    
 
     }
 

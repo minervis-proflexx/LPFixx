@@ -7,14 +7,17 @@ $baseDir = dirname($vendorDir);
 
 return array(
     'ilLPFixxPlugin' => $baseDir . '/classes/class.ilLPFixxPlugin.php',
+    'minervis\\plugins\\LPFixx\\Job\\CertificateGenerationJob' => $baseDir . '/src/Job/CertificateGenerationJob.php',
+    'minervis\\plugins\\LPFixx\\Job\\CollectionLPFixJob' => $baseDir . '/src/Job/CollectionLPFixJob.php',
     'minervis\\plugins\\LPFixx\\Job\\Factory' => $baseDir . '/src/Job/Factory.php',
-    'minervis\\plugins\\LPFixx\\Job\\Job' => $baseDir . '/src/Job/Job.php',
+    'minervis\\plugins\\LPFixx\\Job\\FindAndFixInconsistenciesJob' => $baseDir . '/src/Job/FindAndFixInconsistenciesJob.php',
+    'minervis\\plugins\\LPFixx\\Job\\LFStatusLP' => $baseDir . '/src/Job/LFStatusLP.php',
     'minervis\\plugins\\LPFixx\\Job\\Repository' => $baseDir . '/src/Job/Repository.php',
-    'minervis\\plugins\\LPFixx\\Job\\ilLFStatusLP' => $baseDir . '/src/Job/class.ilLFStatusLP.php',
     'minervis\\plugins\\LPFixx\\Log\\Factory' => $baseDir . '/src/Log/Factory.php',
     'minervis\\plugins\\LPFixx\\Log\\ILog' => $baseDir . '/src/Log/iLog.php',
     'minervis\\plugins\\LPFixx\\Log\\Log' => $baseDir . '/src/Log/Log.php',
     'minervis\\plugins\\LPFixx\\Log\\Repository' => $baseDir . '/src/Log/Repository.php',
     'minervis\\plugins\\LPFixx\\Repository' => $baseDir . '/src/Repository.php',
     'minervis\\plugins\\LPFixx\\Utils\\LPFixxTrait' => $baseDir . '/src/Utils/LPFixxTrait.php',
+    'minervis\\plugins\\LPFixx\\Utils\\SummaryLogger' => $baseDir . '/src/Utils/SummaryLogger.php',
 );

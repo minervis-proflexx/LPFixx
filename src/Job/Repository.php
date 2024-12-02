@@ -3,6 +3,7 @@
 namespace minervis\plugins\LPFixx\Job;
 
 use minervis\plugins\LPFixx\Utils\LPFixxTrait;
+use ilLPFixxPlugin;
 
 /**
  * Class Repository

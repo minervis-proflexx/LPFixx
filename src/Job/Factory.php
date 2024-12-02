@@ -55,9 +55,12 @@ final class Factory
     public function newInstanceById(string $job_id) : ?ilCronJob
     {
         switch ($job_id) {
-            case Job::CRON_JOB_ID:
-                return $this->newJobInstance();
-
+            case CollectionLPFixJob::CRON_JOB_ID:
+                return new CollectionLPFixJob();
+            case FindAndFixInconsistenciesJob::CRON_JOB_ID:
+                return new FindAndFixInconsistenciesJob();
+            case CertificateGenerationJob::CRON_JOB_ID:
+                return new CertificateGenerationJob();
             default:
                 return null;
         }
@@ -70,16 +73,10 @@ final class Factory
     public function newInstances() : array
     {
         return [
-            $this->newJobInstance()
+            new CollectionLPFixJob(),
+            new FindAndFixInconsistenciesJob(),
+            new CertificateGenerationJob()
+
         ];
-    }
-
-
-    /**
-     * @return Job
-     */
-    public function newJobInstance() : Job
-    {
-        return new Job();
     }
 }
