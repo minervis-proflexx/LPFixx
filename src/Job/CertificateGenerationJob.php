@@ -119,14 +119,14 @@ class CertificateGenerationJob extends ilCronJob
     {
         global $DIC;
         $query = "SELECT DISTINCT
-                    c.user_id, 
+                    c.usr_id, 
                     c.obj_id,
                     c.obj_type
                 FROM il_cert_user_cert c
                 WHERE NOT EXISTS (
                     SELECT 1
                     FROM ut_lp_marks m
-                    WHERE m.usr_id = c.user_id
+                    WHERE m.usr_id = c.usr_id
                     AND m.obj_id = c.obj_id
                     AND m.status = 2
                 )  
@@ -138,10 +138,11 @@ class CertificateGenerationJob extends ilCronJob
 
         while($row = $this->dic->database()->fetchAssoc($rows)){
 
-            $this->deleteQuery($row['obj_id'], $row['user_id'], $row['obj_type']);
-            SummaryLogger::write($row['user_id'], $row['obj_id'], SummaryLogger::REASON_FIX_CERTIFICATE, $row);
+            $this->deleteQuery($row['obj_id'], $row['usr_id'], $row['obj_type']);
+            SummaryLogger::write($row['usr_id'], $row['obj_id'], SummaryLogger::REASON_FIX_CERTIFICATE, $row);
             //break;
         }
+        SummaryLogger::write(0, 0, SummaryLogger::REASON_FIX_CERTIFICATE, array());
 
         return $numberRows;
        
@@ -153,7 +154,7 @@ class CertificateGenerationJob extends ilCronJob
         $sql = "UPDATE il_cert_user_cert c
                 SET c.currently_active = 0
                 WHERE c.obj_id = %s 
-                    AND c.user_id = %s 
+                    AND c.usr_id = %s 
                     AND c.obj_type = %s
         ";
         $this->dic->database()->manipulateF(

@@ -70,7 +70,7 @@ class ilLPFixxPlugin extends ilCronHookPlugin
     }
 
 
-    protected function deleteData() : void
+    protected function afterUninstall() : void
     {
         self::lPFixx()->dropTables();
     }

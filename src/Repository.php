@@ -6,6 +6,7 @@ use minervis\plugins\LPFixx\Job\Repository as JobsRepository;
 use minervis\plugins\LPFixx\Utils\LPFixxTrait;
 use ilLPFixxPlugin;
 use minervis\plugins\LPFixx\Log\Repository as LogRepository;
+use minervis\plugins\LPFixx\Utils\SummaryLogger;
 
 /**
  * Class Repository
@@ -42,8 +43,10 @@ final class Repository
 
     public function dropTables() : void
     {
-
+        global $DIC;
         $this->jobs()->dropTables();
+        $DIC->database()->manipulate("DROP TABLE IF EXISTS ". SummaryLogger::TABLE_NAME);
+        $DIC->database()->dropSequence(SummaryLogger::TABLE_NAME);
     }
 
 

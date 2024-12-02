@@ -64,7 +64,7 @@ class CollectionLPFixJob extends ilCronJob
 
     public function getDescription() : string
     {
-        return "";
+        return "Fix LP issues once the learning progress settings of a course/collection changes. ";
     }
 
 
@@ -76,7 +76,7 @@ class CollectionLPFixJob extends ilCronJob
 
     public function getTitle() : string
     {
-        return ilLPFixxPlugin::PLUGIN_NAME;
+        return ilLPFixxPlugin::PLUGIN_NAME . ": Fix Collection LP";
     }
 
 
