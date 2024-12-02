@@ -17,13 +17,7 @@
     "email": "jephte.abijuru@minervis.com"
   },
   "require": {
-    "php": ">=7.2",
-    "srag/activerecordconfig": ">=0.1.0",
-    "srag/custominputguis": ">=0.1.0",
-    "srag/devtools": ">=0.1.0",
-    "srag/dic": ">=0.1.0",
-    "srag/librariesnamespacechanger": ">=0.1.0",
-    "srag/removeplugindataconfirm": ">=0.1.0"
+    "php": ">=8.1"
   },
   "autoload": {
     "psr-4": {
@@ -37,10 +31,5 @@
     "classmap-authoritative": true,
     "optimize-autoloader": true,
     "sort-packages": true
-  },
-  "scripts": {
-    "pre-autoload-dump": [
-      "srag\\LibrariesNamespaceChanger\\LibrariesNamespaceChanger::rewriteLibrariesNamespaces"
-    ]
   }
 }

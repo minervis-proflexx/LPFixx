@@ -8,7 +8,6 @@ use minervis\plugins\LPFixx\Utils\SummaryLogger;
 use ilLPFixxPlugin;
 use ilCronJob;
 use ilCronJobResult;
-use ilObjectFactory;
 
 
 /**
@@ -43,45 +42,30 @@ class FindAndFixInconsistenciesJob extends ilCronJob
     }
 
 
-    /**
-     * @inheritDoc
-     */
-    public function getDefaultScheduleType() : int
+    public function getDefaultScheduleType() : \ILIAS\Cron\Schedule\CronJobScheduleType
     {
-        return self::SCHEDULE_TYPE_DAILY;
+        return \ILIAS\Cron\Schedule\CronJobScheduleType::SCHEDULE_TYPE_DAILY;
     }
 
 
-    /**
-     * @inheritDoc
-     */
     public function getDefaultScheduleValue() : ?int
     {
         return null;
     }
 
 
-    /**
-     * @inheritDoc
-     */
     public function getDescription() : string
     {
         return "Find and Fix LP inconsistencies";
     }
 
 
-    /**
-     * @inheritDoc
-     */
     public function getId() : string
     {
         return self::CRON_JOB_ID;
     }
 
 
-    /**
-     * @inheritDoc
-     */
     public function getTitle() : string
     {
         return ilLPFixxPlugin::PLUGIN_NAME . ": FindAndFixInconsistencies";
@@ -97,17 +81,11 @@ class FindAndFixInconsistenciesJob extends ilCronJob
     }
 
 
-    /**
-     * @inheritDoc
-     */
     public function hasFlexibleSchedule() : bool
     {
         return true;
     }
 
-    /**
-     * @inheritDoc
-     */
     public function run() : ilCronJobResult
     {
         $result = new ilCronJobResult();
@@ -125,7 +103,7 @@ class FindAndFixInconsistenciesJob extends ilCronJob
         return $result;
     }
 
-    public function findLPInconsistencies(int $minutes = 30)
+    public function findLPInconsistencies(int $minutes = 30): array
     {
         $this->dic->database()->query("DROP TEMPORARY TABLE IF EXISTS lp_inconsistencies");
         $query = "CREATE TEMPORARY TABLE lp_inconsistencies AS
@@ -189,7 +167,7 @@ class FindAndFixInconsistenciesJob extends ilCronJob
         return $items;
     }
 
-    public function fixLPInconsistencies()
+    public function fixLPInconsistencies(): array
     {
         //First call the finder
         $items = $this->findLPInconsistencies();

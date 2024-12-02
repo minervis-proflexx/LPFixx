@@ -21,17 +21,13 @@ class ComposerStaticInitc7f5e623613002dd607139f42cbc3d8e
     );
 
     public static $classMap = array (
+        'Composer\\InstalledVersions' => __DIR__ . '/..' . '/composer/InstalledVersions.php',
         'ilLPFixxPlugin' => __DIR__ . '/../..' . '/classes/class.ilLPFixxPlugin.php',
         'minervis\\plugins\\LPFixx\\Job\\CertificateGenerationJob' => __DIR__ . '/../..' . '/src/Job/CertificateGenerationJob.php',
         'minervis\\plugins\\LPFixx\\Job\\CollectionLPFixJob' => __DIR__ . '/../..' . '/src/Job/CollectionLPFixJob.php',
         'minervis\\plugins\\LPFixx\\Job\\Factory' => __DIR__ . '/../..' . '/src/Job/Factory.php',
         'minervis\\plugins\\LPFixx\\Job\\FindAndFixInconsistenciesJob' => __DIR__ . '/../..' . '/src/Job/FindAndFixInconsistenciesJob.php',
-        'minervis\\plugins\\LPFixx\\Job\\LFStatusLP' => __DIR__ . '/../..' . '/src/Job/LFStatusLP.php',
         'minervis\\plugins\\LPFixx\\Job\\Repository' => __DIR__ . '/../..' . '/src/Job/Repository.php',
-        'minervis\\plugins\\LPFixx\\Log\\Factory' => __DIR__ . '/../..' . '/src/Log/Factory.php',
-        'minervis\\plugins\\LPFixx\\Log\\ILog' => __DIR__ . '/../..' . '/src/Log/iLog.php',
-        'minervis\\plugins\\LPFixx\\Log\\Log' => __DIR__ . '/../..' . '/src/Log/Log.php',
-        'minervis\\plugins\\LPFixx\\Log\\Repository' => __DIR__ . '/../..' . '/src/Log/Repository.php',
         'minervis\\plugins\\LPFixx\\Repository' => __DIR__ . '/../..' . '/src/Repository.php',
         'minervis\\plugins\\LPFixx\\Utils\\LPFixxTrait' => __DIR__ . '/../..' . '/src/Utils/LPFixxTrait.php',
         'minervis\\plugins\\LPFixx\\Utils\\SummaryLogger' => __DIR__ . '/../..' . '/src/Utils/SummaryLogger.php',

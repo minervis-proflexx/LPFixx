@@ -1,15 +1,17 @@
 <?php
+declare(strict_types=1);
+
 
 namespace minervis\plugins\LPFixx\Job;
 
+
+use ILIAS\Cron\Schedule\CronJobScheduleType;
 use ILIAS\DI\Exceptions\Exception;
 use minervis\plugins\LPFixx\Utils\LPFixxTrait;
 use ilLPFixxPlugin;
 use ilCronJob;
 use ilCronJobResult;
-use ilObjectFactory;
 use ilCertificateTemplateRepository;
-use ilCertificateTemplateDeleteAction;
 use minervis\plugins\LPFixx\Utils\SummaryLogger;
 
 /**
@@ -34,13 +36,7 @@ class CertificateGenerationJob extends ilCronJob
     /**
      * @var ilCertificateTemplateRepository
      */
-    private $templateRepository;
-
-    /**
-     * @var ilCertificateDeleteAction
-     */
-    private $deleteAction;
-
+    private ilCertificateTemplateRepository $templateRepository;
 
     /**
      * CertificateGenerationJob constructor
@@ -57,42 +53,30 @@ class CertificateGenerationJob extends ilCronJob
     /**
      * @inheritDoc
      */
-    public function getDefaultScheduleType() : int
+    public function getDefaultScheduleType() : CronJobScheduleType
     {
-        return self::SCHEDULE_TYPE_DAILY;
+        return CronJobScheduleType::SCHEDULE_TYPE_DAILY;
     }
 
 
-    /**
-     * @inheritDoc
-     */
     public function getDefaultScheduleValue() : ?int
     {
         return null;
     }
 
 
-    /**
-     * @inheritDoc
-     */
     public function getDescription() : string
     {
-        return "Deletes/Deaktivates Certificates of users who have not passed. For more info about the summary of which user in which course has been affected, contact the admin";
+        return "Deletes/Deactivates Certificates of users who have not passed. For more info about the summary of which user in which course has been affected, contact the admin";
     }
 
 
-    /**
-     * @inheritDoc
-     */
     public function getId() : string
     {
         return self::CRON_JOB_ID;
     }
 
 
-    /**
-     * @inheritDoc
-     */
     public function getTitle() : string
     {
         return ilLPFixxPlugin::PLUGIN_NAME . ": Clean Certiticates";
@@ -108,17 +92,11 @@ class CertificateGenerationJob extends ilCronJob
     }
 
 
-    /**
-     * @inheritDoc
-     */
     public function hasFlexibleSchedule() : bool
     {
         return true;
     }
 
-    /**
-     * @inheritDoc
-     */
     public function run() : ilCronJobResult
     {
         $result = new ilCronJobResult();
@@ -137,7 +115,7 @@ class CertificateGenerationJob extends ilCronJob
         return $result;
     }
 
-    private function deleteWrongCertificates()
+    private function deleteWrongCertificates(): int
     {
         global $DIC;
         $query = "SELECT DISTINCT
@@ -170,7 +148,7 @@ class CertificateGenerationJob extends ilCronJob
         
     }
 
-    private function deleteQuery($obj_id, $usr_id, $obj_type) 
+    private function deleteQuery($obj_id, $usr_id, $obj_type): void
     {
         $sql = "UPDATE il_cert_user_cert c
                 SET c.currently_active = 0

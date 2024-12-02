@@ -50,45 +50,30 @@ class CollectionLPFixJob extends ilCronJob
     }
 
 
-    /**
-     * @inheritDoc
-     */
-    public function getDefaultScheduleType() : int
+    public function getDefaultScheduleType() : \ILIAS\Cron\Schedule\CronJobScheduleType
     {
-        return self::SCHEDULE_TYPE_DAILY;
+        return \ILIAS\Cron\Schedule\CronJobScheduleType::SCHEDULE_TYPE_DAILY;
     }
 
 
-    /**
-     * @inheritDoc
-     */
     public function getDefaultScheduleValue() : ?int
     {
         return null;
     }
 
 
-    /**
-     * @inheritDoc
-     */
     public function getDescription() : string
     {
         return "";
     }
 
 
-    /**
-     * @inheritDoc
-     */
     public function getId() : string
     {
         return self::CRON_JOB_ID;
     }
 
 
-    /**
-     * @inheritDoc
-     */
     public function getTitle() : string
     {
         return ilLPFixxPlugin::PLUGIN_NAME;
@@ -104,17 +89,11 @@ class CollectionLPFixJob extends ilCronJob
     }
 
 
-    /**
-     * @inheritDoc
-     */
     public function hasFlexibleSchedule() : bool
     {
         return true;
     }
 
-    /**
-     * @inheritDoc
-     */
     public function run() : ilCronJobResult
     {
         $result = new ilCronJobResult();
@@ -141,7 +120,7 @@ class CollectionLPFixJob extends ilCronJob
         return $result;
     }
 
-    public function updateStatus($a_obj_id, $a_usr_id, $passed_info, &$summary, $a_obj = null,  $a_force_raise = true)
+    public function updateStatus($a_obj_id, $a_usr_id, $passed_info, &$summary, $a_obj = null,  $a_force_raise = true): void
     {
         $log = ilLoggerFactory::getLogger('trac');
         $log->debug(sprintf(
@@ -175,7 +154,7 @@ class CollectionLPFixJob extends ilCronJob
 
 
 
-    protected static function raiseEvent($a_obj_id, $a_usr_id, $a_status, $a_old_status, $a_percentage)
+    protected static function raiseEvent($a_obj_id, $a_usr_id, $a_status, $a_old_status, $a_percentage): void
     {
         global $DIC;
 
@@ -196,7 +175,7 @@ class CollectionLPFixJob extends ilCronJob
 
 
 
-    public function determineStatus($obj_id, $usr_id, $obj)
+    public function determineStatus($obj_id, $usr_id, $obj): bool|array
     {
 
         $query = "WITH modules_lp AS (
@@ -236,7 +215,7 @@ class CollectionLPFixJob extends ilCronJob
     /**
      * Update passed status
      */
-    public  function updatePassed($a_obj_id, $a_usr_id, $status_changed, array &$summary)
+    public  function updatePassed($a_obj_id, $a_usr_id, $status_changed, array &$summary): bool
     {
         global $DIC;
 
@@ -274,7 +253,7 @@ class CollectionLPFixJob extends ilCronJob
     }
 
 
-    public static function writeStatus($a_obj_id, $a_user_id, $a_status, $passed_info = null, $a_percentage = false, $a_force_per = false, &$a_old_status = ilLPStatus::LP_STATUS_NOT_ATTEMPTED_NUM)
+    public static function writeStatus($a_obj_id, $a_user_id, $a_status, $passed_info = null, $a_percentage = false, $a_force_per = false, &$a_old_status = ilLPStatus::LP_STATUS_NOT_ATTEMPTED_NUM): bool
     {
         global $DIC;
 
@@ -366,7 +345,7 @@ class CollectionLPFixJob extends ilCronJob
         return $update_dependencies;
     }
 
-    public  function hasUserCertificate($usr_id, $obj_id)
+    public  function hasUserCertificate($usr_id, $obj_id): bool
     {
         $sql = "SELECT id from il_cert_user_cert where user_id = %s AND obj_id =%s";
         $res = $this->dic->database()->queryF($sql, ['integer', 'integer'], [$usr_id, $obj_id]);
@@ -380,27 +359,22 @@ class CollectionLPFixJob extends ilCronJob
         $GLOBALS['DIC']->logger()->root()->dump($row['template_values']);
         return json_decode($row['template_values'], true);
     }
-    public static function generateCertificates()
-    {
 
-    }
 
-    public function  getObjectsPerRule($rule = null)
+    public function  getObjectsPerRule($rule = null): array|RecursiveIteratorIterator
     {
-        if($rule){}
-        else{
-            $query = "SELECT DISTINCT uc.obj_id, utl.usr_id 
+        if($rule) return array();
+        $query = "SELECT DISTINCT uc.obj_id, utl.usr_id 
                 FROM ut_lp_collections uc 
                 INNER JOIN ut_lp_marks utl ON uc.obj_id = utl.obj_id 
                 INNER JOIN object_data obd ON obd.obj_id = uc.obj_id 
                 WHERE uc.grouping_id > 0 AND (utl.status = %s OR utl.status = %s) 
                     AND obd.type= %s";
-            $res = $this->dic->database()->queryF($query, ['integer','integer', 'text'], [ilLPStatus::LP_STATUS_COMPLETED_NUM, ilLPStatus::LP_STATUS_FAILED_NUM, 'crs']);
-            $members = array();
-            while($r = $this->dic->database()->fetchAssoc($res)){
-                $members [] = [$r['obj_id'] => $r['usr_id']];
-            }
-            return new RecursiveIteratorIterator(new RecursiveArrayIterator($members));;
+        $res = $this->dic->database()->queryF($query, ['integer','integer', 'text'], [ilLPStatus::LP_STATUS_COMPLETED_NUM, ilLPStatus::LP_STATUS_FAILED_NUM, 'crs']);
+        $members = array();
+        while($r = $this->dic->database()->fetchAssoc($res)){
+            $members [] = [$r['obj_id'] => $r['usr_id']];
         }
+        return new RecursiveIteratorIterator(new RecursiveArrayIterator($members));
     }
 }

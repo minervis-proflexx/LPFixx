@@ -27,21 +27,16 @@ class ilLPFixxPlugin extends ilCronHookPlugin
 
 
     /**
-     * ilLPFixxPlugin constructor
-     */
-    public function __construct()
-    {
-        parent::__construct();
-    }
-
-
-    /**
      * @return self
      */
     public static function getInstance() : self
     {
+        global $DIC;
         if (self::$instance === null) {
-            self::$instance = new self();
+            /** @var $component_factory ilComponentFactory */
+            $component_factory = $DIC['component.factory'];
+
+            self::$instance = $component_factory->getPlugin(self::PLUGIN_ID);
         }
 
         return self::$instance;
@@ -54,9 +49,9 @@ class ilLPFixxPlugin extends ilCronHookPlugin
     /**
      * @inheritDoc
      */
-    public function getCronJobInstance(/*string*/ $a_job_id) : ?ilCronJob
+    public function getCronJobInstance(string $jobId) : ilCronJob
     {
-        return self::lPFixx()->jobs()->factory()->newInstanceById($a_job_id);
+        return self::lPFixx()->jobs()->factory()->newInstanceById($jobId);
     }
 
 
@@ -69,40 +64,18 @@ class ilLPFixxPlugin extends ilCronHookPlugin
     }
 
 
-    /**
-     * @inheritDoc
-     */
     public function getPluginName() : string
     {
         return self::PLUGIN_NAME;
     }
 
 
-    /**
-     * @inheritDoc
-     */
-    public function updateLanguages(/*?array*/ $a_lang_keys = null) : void
-    {
-        parent::updateLanguages($a_lang_keys);
-
-        //$this->installRemovePluginDataConfirmLanguages();
-
-        //DevToolsCtrl::installLanguages(self::plugin());
-    }
-
-
-    /**
-     * @inheritDoc
-     */
     protected function deleteData() : void
     {
         self::lPFixx()->dropTables();
     }
 
 
-    /**
-     * @inheritDoc
-     */
     protected function shouldUseOneUpdateStepOnly() : bool
     {
         return false;

@@ -24,8 +24,4 @@ trait LPFixxTrait
         return Repository::getInstance();
     }
 
-    protected  static function logs(): LogRepository
-    {
-        return LogRepository::getInstance();
-    }
 }

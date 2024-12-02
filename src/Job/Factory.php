@@ -4,6 +4,7 @@ namespace minervis\plugins\LPFixx\Job;
 
 use minervis\plugins\LPFixx\Utils\LPFixxTrait;
 use ilCronJob;
+use ilLPFixxPlugin;
 
 /**
  * Class Factory
@@ -22,7 +23,7 @@ final class Factory
     /**
      * @var self|null
      */
-    protected static $instance = null;
+    protected static ?Factory $instance = null;
 
 
     /**

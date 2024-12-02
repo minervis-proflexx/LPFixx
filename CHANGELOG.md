@@ -16,3 +16,8 @@
 - Add a logging mechanism
 - Add a job to clean certificates(deactivate wrongly assigned certiticates)
 - Refactor: Remove ilLFStatusLP -->  move logic to the cron job class
+
+## 02.12.2024 version 3.0
+- Support for ILIAS 9
+- Replace the logs module with SummaryLogger
+- Many PHP Fixes

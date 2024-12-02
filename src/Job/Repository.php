@@ -25,14 +25,6 @@ final class Repository
     protected static $instance = null;
 
 
-    /**
-     * Repository constructor
-     */
-    private function __construct()
-    {
-
-    }
-
 
     /**
      * @return self

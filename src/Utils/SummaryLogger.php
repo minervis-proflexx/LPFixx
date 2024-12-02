@@ -21,7 +21,7 @@ class  SummaryLogger
     const TABLE_NAME = "cron_crnhk_lpfixx_log";
 
 
-    public  static function write($usr_id, $obj_id, $reason, array $status)
+    public  static function write($usr_id, $obj_id, $reason, array $status): void
     {
         global $DIC;
        

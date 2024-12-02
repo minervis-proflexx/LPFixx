@@ -29,15 +29,6 @@ final class Repository
 
 
     /**
-     * Repository constructor
-     */
-    private function __construct()
-    {
-
-    }
-
-
-    /**
      * @return self
      */
     public static function getInstance() : self
@@ -49,26 +40,17 @@ final class Repository
         return self::$instance;
     }
 
-
-
-
-
-    /**
-     *
-     */
     public function dropTables() : void
     {
-        //$this->config()->dropTables();
+
         $this->jobs()->dropTables();
     }
 
 
-    /**
-     *
-     */
+
     public function installTables() : void
     {
-        //$this->config()->installTables();
+
         $this->jobs()->installTables();
     }
 
@@ -79,10 +61,5 @@ final class Repository
     public function jobs() : JobsRepository
     {
         return JobsRepository::getInstance();
-    }
-
-    public function logs() : LogRepository
-    {
-        return LogRepository::getInstance();
     }
 }
