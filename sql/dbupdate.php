@@ -29,7 +29,7 @@
             ),
             'created_at' => array(
                 'type' => 'timestamp',
-                'notnull' => false
+                'notnull' => true
             ),
             'status' => array(
                 'type' => 'text',

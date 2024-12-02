@@ -30,7 +30,7 @@ class  SummaryLogger
             $usr_id,
             $obj_id,
             $reason,
-            //time(),
+            date('Y-m-d H:i:s'),
             json_encode($status)
         );
         $types = array(
@@ -38,12 +38,12 @@ class  SummaryLogger
             "integer",
             "integer",
             "integer",
-            //"timestamp",
+            "timestamp",
             "text"
         );
 
         $DIC->database()->manipulateF(
-            "INSERT INTO " . self::TABLE_NAME . " (id, usr_id, obj_id, reason, status) VALUES (%s, %s, %s, %s, %s)",
+            "INSERT INTO " . self::TABLE_NAME . " (id, usr_id, obj_id, reason, created_at, status) VALUES (%s, %s, %s, %s, %s, %s)",
             $types,
             $data
         );
