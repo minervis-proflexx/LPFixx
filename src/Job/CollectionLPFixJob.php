@@ -153,7 +153,9 @@ class CollectionLPFixJob extends ilCronJob
 
         $status = $this->determineStatus($a_obj_id, $a_usr_id, $a_obj);
 
-        if (!$status || ($status && !empty($status['status_changed']) 
+        if (!$status || ($status && !empty($status['status_changed'])
+                && !empty($status['status'])
+                && $status['status'] == ilLPStatus::_lookupStatus($a_obj_id, $a_usr_id, false)
                 && $status['status_changed'] == ilLPStatus::_lookupStatusChanged($a_obj_id, $a_usr_id)
             )){
             $summary['not_updated'] ++;
