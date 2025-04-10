@@ -21,3 +21,6 @@
 - Support for ILIAS 9
 - Replace the logs module with SummaryLogger
 - Many PHP Fixes
+
+## 10.04.2025 Version 3.0
+-  Fix: LP status type(rollback)
