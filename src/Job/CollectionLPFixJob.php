@@ -372,7 +372,7 @@ class CollectionLPFixJob extends ilCronJob
                 INNER JOIN object_data obd ON obd.obj_id = uc.obj_id 
                 WHERE uc.grouping_id > 0 AND (utl.status = %s OR utl.status = %s OR utl.status = %s) 
                     AND obd.type= %s";
-        $res = $this->dic->database()->queryF($query, ['integer','integer', 'integer', 'text'], [[ilLPStatus::LP_STATUS_IN_PROGRESS_NUM, ilLPStatus::LP_STATUS_COMPLETED_NUM, ilLPStatus::LP_STATUS_FAILED_NUM, 'crs']);
+        $res = $this->dic->database()->queryF($query, ['integer','integer', 'integer', 'text'], [ilLPStatus::LP_STATUS_IN_PROGRESS_NUM, ilLPStatus::LP_STATUS_COMPLETED_NUM, ilLPStatus::LP_STATUS_FAILED_NUM, 'crs']);
         $members = array();
         while($r = $this->dic->database()->fetchAssoc($res)){
             $members [] = [$r['obj_id'] => $r['usr_id']];
