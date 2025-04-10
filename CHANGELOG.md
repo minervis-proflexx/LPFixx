@@ -23,4 +23,5 @@
 - Many PHP Fixes
 
 ## 10.04.2025 Version 3.0
--  Fix: LP status type(rollback)
+-  Fix: LP status type(rollback), in progress users
+-  Fix: typing for events
